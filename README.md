@@ -11,6 +11,8 @@ A Kafka-based order processing system demonstrating:
 
 ## Architecture
 
+![Architecture diagram](diagram.png)
+
 Producer
     |
     | Avro
