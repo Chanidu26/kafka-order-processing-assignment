@@ -206,18 +206,6 @@ def process_order(order):
 
 
     # ----------------------------------------------
-    # Simulate permanent failures
-    # ----------------------------------------------
-
-    # Orders ending with 9 permanently fail.
-    if order_id.endswith("9"):
-
-        raise PermanentProcessingError(
-            "Simulated permanent processing failure"
-        )
-
-
-    # ----------------------------------------------
     # Successful processing
     # ----------------------------------------------
 
