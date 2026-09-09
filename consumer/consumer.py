@@ -22,7 +22,7 @@ from dlq import DLQProducer
 
 KAFKA_BOOTSTRAP_SERVERS = os.getenv(
     "KAFKA_BOOTSTRAP_SERVERS",
-    "localhost:9092"
+    "localhost:9092,localhost:9093,localhost:9094"
 )
 
 SCHEMA_REGISTRY_URL = os.getenv(
@@ -203,18 +203,6 @@ def process_order(order):
             raise TemporaryProcessingError(
                 "Simulated temporary failure"
             )
-
-
-    # ----------------------------------------------
-    # Simulate permanent failures
-    # ----------------------------------------------
-
-    # Orders ending with 9 permanently fail.
-    if order_id.endswith("9"):
-
-        raise PermanentProcessingError(
-            "Simulated permanent processing failure"
-        )
 
 
     # ----------------------------------------------

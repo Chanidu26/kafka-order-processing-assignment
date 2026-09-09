@@ -15,7 +15,7 @@ from confluent_kafka.schema_registry.avro import AvroSerializer
 
 KAFKA_BOOTSTRAP_SERVERS = os.getenv(
     "KAFKA_BOOTSTRAP_SERVERS",
-    "localhost:9092"
+    "localhost:9092,localhost:9093,localhost:9094"
 )
 
 SCHEMA_REGISTRY_URL = os.getenv(
@@ -99,10 +99,17 @@ products = [
 
 def generate_order(order_id):
 
+    # ~1 in 10 orders is generated with a negative price to
+    # exercise the consumer's permanent-failure validation path.
+    if random.randint(1, 10) == 1:
+        price = round(random.uniform(-500, -1), 2)
+    else:
+        price = round(random.uniform(100, 1000), 2)
+
     return {
         "orderId": str(order_id),
         "product": random.choice(products),
-        "price": round(random.uniform(100, 1000), 2)
+        "price": price
     }
 
 
